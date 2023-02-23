@@ -1,26 +1,34 @@
 pipeline {
     agent any
+    tools {
+        terraform 'Terraform'
+    }
 
     stages {
-        stage('Build') {
+        stage('Init') {
             steps {
-                echo 'Building...'
+                echo 'Initializing Terraform...'
+                sh 'ls'
+                sh 'pwd'
+                sh 'terraform init'
             }
         }
     }
 
     stages {
-        stage('Test') {
+        stage('Plan/Validate') {
             steps {
-                echo 'Testing...'
+                echo 'Planning and Validating...'
+                sh 'terraform plan && terraform validate'
             }
         }
     }
 
     stages {
-        stage('Deploy') {
+        stage('Apply/Deploy') {
             steps {
-                echo 'Deploying...'
+                echo 'Applying/Deploying...'
+                sh 'terraform apply -auto-approve'
             }
         }
     }
