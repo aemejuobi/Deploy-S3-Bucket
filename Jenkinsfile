@@ -5,6 +5,7 @@ pipeline {
     }
 
     stages {
+        
         stage('Init') {
             steps {
                 echo 'Initializing Terraform...'
@@ -13,18 +14,16 @@ pipeline {
                 sh 'terraform init'
             }
         }
-    }
 
-    stages {
+    
         stage('Plan/Validate') {
             steps {
                 echo 'Planning and Validating...'
                 sh 'terraform plan && terraform validate'
             }
         }
-    }
-
-    stages {
+    
+    
         stage('Apply/Deploy') {
             steps {
                 echo 'Applying/Deploying...'
